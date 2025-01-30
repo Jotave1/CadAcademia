@@ -15,5 +15,5 @@ CREATE TABLE alunos (
 CREATE TABLE treinos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     ordem VARCHAR(255),
-    descricao VARCHAR(255)
+    descricao VARCHAR(1000)
 );
