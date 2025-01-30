@@ -28,7 +28,7 @@ public class TelaEditarTreino {
         }
 
         JFrame frame = new JFrame("Editar Treino");
-        frame.setSize(400, 300);
+        frame.setSize(400, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
 
@@ -62,7 +62,7 @@ public class TelaEditarTreino {
                 String ordem = textOrdem.getText();
                 String descricao = textDescricao.getText();
 
-                Treino treinoAtualizado = new Treino(treinoId, treino.getAluno(), ordem, descricao);
+                Treino treinoAtualizado = new Treino(treinoId, ordem, descricao);
                 alunoController.atualizarTreino(treinoId, treinoAtualizado);
 
                 JOptionPane.showMessageDialog(frame, "Treino atualizado com sucesso!");
@@ -83,3 +83,4 @@ public class TelaEditarTreino {
         frame.setVisible(true);
     }
 }
+
