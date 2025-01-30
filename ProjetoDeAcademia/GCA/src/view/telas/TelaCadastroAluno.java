@@ -1,6 +1,7 @@
 package view.telas;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -16,89 +17,134 @@ public class TelaCadastroAluno {
         this.alunoController = alunoController;
 
         JFrame frame = new JFrame("Cadastro de Alunos");
-        frame.setSize(400, 400);
+        frame.setSize(1000, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
+        frame.setLayout(new BorderLayout());
+
+        JPanel painelImagem = new JPanel();
+        painelImagem.setLayout(new BorderLayout());
+
+        ImageIcon imagemIcone = null;
+        try {
+            imagemIcone = new ImageIcon(getClass().getResource("/img/pjt-POO-TelaFundo.png"));
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar a imagem: " + e.getMessage());
+        }
+
+        if (imagemIcone != null) {
+            JLabel labelImagem = new JLabel();
+            Image imagem = imagemIcone.getImage();
+            Image imagemRedimensionada = imagem.getScaledInstance(1000, 700, Image.SCALE_SMOOTH);
+            imagemIcone = new ImageIcon(imagemRedimensionada);
+            labelImagem.setIcon(imagemIcone);
+            painelImagem.add(labelImagem, BorderLayout.CENTER);
+        } else {
+            System.err.println("A imagem não pôde ser carregada.");
+        }
+
+        frame.setContentPane(painelImagem);
+
+        JPanel painelFormulario = new JPanel(new GridBagLayout());
+        painelFormulario.setOpaque(false);
+        painelFormulario.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
 
         JLabel labelNome = new JLabel("Nome:");
-        labelNome.setBounds(10, 10, 80, 25);
-        frame.add(labelNome);
+        painelFormulario.add(labelNome, gbc);
 
-        JTextField textNome = new JTextField();
-        textNome.setBounds(100, 10, 200, 25);
-        frame.add(textNome);
+        JTextField textNome = new JTextField(20);
+        gbc.gridx = 1;
+        painelFormulario.add(textNome, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel labelIdade = new JLabel("Idade:");
-        labelIdade.setBounds(10, 40, 80, 25);
-        frame.add(labelIdade);
+        painelFormulario.add(labelIdade, gbc);
 
-        JTextField textIdade = new JTextField();
-        textIdade.setBounds(100, 40, 200, 25);
-        frame.add(textIdade);
+        JTextField textIdade = new JTextField(20);
+        gbc.gridx = 1;
+        painelFormulario.add(textIdade, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel labelTelefone = new JLabel("Telefone:");
-        labelTelefone.setBounds(10, 70, 80, 25);
-        frame.add(labelTelefone);
+        painelFormulario.add(labelTelefone, gbc);
 
-        JTextField textTelefone = new JTextField();
-        textTelefone.setBounds(100, 70, 200, 25);
-        frame.add(textTelefone);
+        JTextField textTelefone = new JTextField(20);
+        gbc.gridx = 1;
+        painelFormulario.add(textTelefone, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel labelPeso = new JLabel("Peso:");
-        labelPeso.setBounds(10, 100, 80, 25);
-        frame.add(labelPeso);
+        painelFormulario.add(labelPeso, gbc);
 
-        JTextField textPeso = new JTextField();
-        textPeso.setBounds(100, 100, 200, 25);
-        frame.add(textPeso);
+        JTextField textPeso = new JTextField(20);
+        gbc.gridx = 1;
+        painelFormulario.add(textPeso, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel labelObjetivo = new JLabel("Objetivo:");
-        labelObjetivo.setBounds(10, 130, 80, 25);
-        frame.add(labelObjetivo);
+        painelFormulario.add(labelObjetivo, gbc);
 
-        String[] opcoesObjetivo = {"Hipertrofia", "Emagrecimento", "Manutenção"};
+        String[] opcoesObjetivo = {"Hipertrofia", "Emagrecimento"};
         JComboBox<String> comboBoxObjetivo = new JComboBox<>(opcoesObjetivo);
-        comboBoxObjetivo.setBounds(100, 130, 200, 25);
-        frame.add(comboBoxObjetivo);
+        gbc.gridx = 1;
+        painelFormulario.add(comboBoxObjetivo, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel labelTipoTreino = new JLabel("Tipo de Treino:");
-        labelTipoTreino.setBounds(10, 160, 80, 25);
-        frame.add(labelTipoTreino);
+        painelFormulario.add(labelTipoTreino, gbc);
 
         List<String> tiposTreino = alunoController.consultarTiposTreino();
         JComboBox<String> comboBoxTipoTreino = new JComboBox<>(tiposTreino.toArray(new String[0]));
-        comboBoxTipoTreino.setBounds(100, 160, 200, 25);
-        frame.add(comboBoxTipoTreino);
+        gbc.gridx = 1;
+        painelFormulario.add(comboBoxTipoTreino, gbc);
+
+        JPanel painelBotoes = new JPanel();
+        painelBotoes.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        painelBotoes.setOpaque(false);
 
         JButton btnCadastrar = new JButton("Cadastrar");
-        btnCadastrar.setBounds(100, 190, 100, 25);
-        frame.add(btnCadastrar);
+        painelBotoes.add(btnCadastrar);
 
         JButton btnVoltar = new JButton("Voltar");
-        btnVoltar.setBounds(210, 190, 100, 25);
-        frame.add(btnVoltar);
+        painelBotoes.add(btnVoltar);
+
+        painelImagem.add(painelFormulario, BorderLayout.CENTER);
+        painelImagem.add(painelBotoes, BorderLayout.SOUTH);
 
         btnCadastrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nome = textNome.getText();
-                int idade = Integer.parseInt(textIdade.getText());
-                String telefone = textTelefone.getText();
-                double peso = Double.parseDouble(textPeso.getText());
-                String objetivo = (String) comboBoxObjetivo.getSelectedItem();
-                String tipoTreino = (String) comboBoxTipoTreino.getSelectedItem();
+                try {
+                    String nome = textNome.getText();
+                    int idade = Integer.parseInt(textIdade.getText());
+                    String telefone = textTelefone.getText();
+                    double peso = Double.parseDouble(textPeso.getText());
+                    String objetivo = (String) comboBoxObjetivo.getSelectedItem();
+                    String tipoTreino = (String) comboBoxTipoTreino.getSelectedItem();
 
-                Aluno aluno = new Aluno(alunoController.consultarAlunos().size() + 1, nome, idade, telefone, peso, objetivo, tipoTreino);
-                alunoController.cadastrarAluno(aluno);
+                    Aluno aluno = new Aluno(alunoController.consultarAlunos().size() + 1, nome, idade, telefone, peso, objetivo, tipoTreino);
+                    alunoController.cadastrarAluno(aluno);
 
-                JOptionPane.showMessageDialog(frame, "Aluno cadastrado com sucesso!");
+                    JOptionPane.showMessageDialog(frame, "Aluno cadastrado com sucesso!");
 
-                textNome.setText("");
-                textIdade.setText("");
-                textTelefone.setText("");
-                textPeso.setText("");
-                comboBoxObjetivo.setSelectedIndex(0);
-                comboBoxTipoTreino.setSelectedIndex(0);
+                    textNome.setText("");
+                    textIdade.setText("");
+                    textTelefone.setText("");
+                    textPeso.setText("");
+                    comboBoxObjetivo.setSelectedIndex(0);
+                    comboBoxTipoTreino.setSelectedIndex(0);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Por favor, insira valores válidos nos campos.");
+                }
             }
         });
 
@@ -110,6 +156,7 @@ public class TelaCadastroAluno {
             }
         });
 
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }

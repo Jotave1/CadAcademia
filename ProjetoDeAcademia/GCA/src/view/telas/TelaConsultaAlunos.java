@@ -1,6 +1,7 @@
 package view.telas;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -16,74 +17,116 @@ public class TelaConsultaAlunos {
         this.alunoController = alunoController;
 
         JFrame frame = new JFrame("Consulta de Alunos");
-        frame.setSize(700, 600);
+        frame.setSize(1000, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
+        frame.setLayout(new BorderLayout());
+
+        JPanel painelImagem = new JPanel();
+        painelImagem.setLayout(new BorderLayout());
+
+        ImageIcon imagemIcone = null;
+        try {
+            imagemIcone = new ImageIcon(getClass().getResource("/img/pjt-POO-TelaFundo.png"));
+        } catch (Exception e) {
+            System.err.println("Erro ao carregar a imagem: " + e.getMessage());
+        }
+
+        if (imagemIcone != null) {
+            JLabel labelImagem = new JLabel();
+            Image imagem = imagemIcone.getImage();
+            Image imagemRedimensionada = imagem.getScaledInstance(1000, 700, Image.SCALE_SMOOTH);
+            imagemIcone = new ImageIcon(imagemRedimensionada);
+            labelImagem.setIcon(imagemIcone);
+            painelImagem.add(labelImagem, BorderLayout.CENTER);
+        } else {
+            System.err.println("A imagem não pôde ser carregada.");
+        }
+
+        frame.setContentPane(painelImagem);
+
+        JPanel painelConsulta = new JPanel(new GridBagLayout());
+        painelConsulta.setOpaque(false); // Tornar o painel da consulta transparente
+        painelConsulta.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
 
         JLabel labelFiltroNome = new JLabel("Filtro por Nome:");
-        labelFiltroNome.setBounds(10, 10, 150, 25);
-        frame.add(labelFiltroNome);
+        painelConsulta.add(labelFiltroNome, gbc);
 
-        JTextField textNome = new JTextField();
-        textNome.setBounds(160, 10, 150, 25);
-        frame.add(textNome);
+        JTextField textNome = new JTextField(20);
+        gbc.gridx = 1;
+        painelConsulta.add(textNome, gbc);
 
+        gbc.gridx = 2;
         JButton btnBuscarNome = new JButton("Buscar");
-        btnBuscarNome.setBounds(320, 10, 100, 25);
-        frame.add(btnBuscarNome);
+        painelConsulta.add(btnBuscarNome, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel labelTipoTreino = new JLabel("Filtro por Tipo de Treino:");
-        labelTipoTreino.setBounds(10, 50, 150, 25);
-        frame.add(labelTipoTreino);
+        painelConsulta.add(labelTipoTreino, gbc);
 
-        JTextField textTipoTreino = new JTextField();
-        textTipoTreino.setBounds(160, 50, 150, 25);
-        frame.add(textTipoTreino);
+        JTextField textTipoTreino = new JTextField(20);
+        gbc.gridx = 1;
+        painelConsulta.add(textTipoTreino, gbc);
 
+        gbc.gridx = 2;
         JButton btnBuscarTipoTreino = new JButton("Buscar");
-        btnBuscarTipoTreino.setBounds(320, 50, 100, 25);
-        frame.add(btnBuscarTipoTreino);
+        painelConsulta.add(btnBuscarTipoTreino, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel labelIntervaloId = new JLabel("Filtro por Intervalo de ID:");
-        labelIntervaloId.setBounds(10, 90, 150, 25);
-        frame.add(labelIntervaloId);
+        painelConsulta.add(labelIntervaloId, gbc);
 
-        JTextField textIdInicio = new JTextField();
-        textIdInicio.setBounds(160, 90, 50, 25);
-        frame.add(textIdInicio);
+        JTextField textIdInicio = new JTextField(5);
+        gbc.gridx = 1;
+        painelConsulta.add(textIdInicio, gbc);
 
         JLabel labelAte = new JLabel("até");
-        labelAte.setBounds(220, 90, 30, 25);
-        frame.add(labelAte);
+        gbc.gridx = 2;
+        painelConsulta.add(labelAte, gbc);
 
-        JTextField textIdFim = new JTextField();
-        textIdFim.setBounds(250, 90, 50, 25);
-        frame.add(textIdFim);
+        JTextField textIdFim = new JTextField(5);
+        gbc.gridx = 3;
+        painelConsulta.add(textIdFim, gbc);
 
         JButton btnBuscarIntervalo = new JButton("Buscar");
-        btnBuscarIntervalo.setBounds(320, 90, 100, 25);
-        frame.add(btnBuscarIntervalo);
+        gbc.gridx = 4;
+        painelConsulta.add(btnBuscarIntervalo, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy++;
         JLabel labelObjetivo = new JLabel("Filtro por Objetivo:");
-        labelObjetivo.setBounds(10, 130, 150, 25);
-        frame.add(labelObjetivo);
+        painelConsulta.add(labelObjetivo, gbc);
 
-        JTextField textObjetivo = new JTextField();
-        textObjetivo.setBounds(160, 130, 150, 25);
-        frame.add(textObjetivo);
+        JTextField textObjetivo = new JTextField(20);
+        gbc.gridx = 1;
+        painelConsulta.add(textObjetivo, gbc);
 
+        gbc.gridx = 2;
         JButton btnBuscarObjetivo = new JButton("Buscar");
-        btnBuscarObjetivo.setBounds(320, 130, 100, 25);
-        frame.add(btnBuscarObjetivo);
+        painelConsulta.add(btnBuscarObjetivo, gbc);
 
-        JTextArea textAreaResultados = new JTextArea();
-        textAreaResultados.setBounds(10, 170, 660, 300);
+        gbc.gridx = 0;
+        gbc.gridy++;
+        gbc.gridwidth = 5;
+        gbc.fill = GridBagConstraints.BOTH;
+        JTextArea textAreaResultados = new JTextArea(10, 50);
         textAreaResultados.setEditable(false);
-        frame.add(textAreaResultados);
+        JScrollPane scrollPane = new JScrollPane(textAreaResultados);
+        painelConsulta.add(scrollPane, gbc);
 
+        gbc.gridy++;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.NONE;
         JButton btnVoltar = new JButton("Voltar");
-        btnVoltar.setBounds(300, 480, 100, 25);
-        frame.add(btnVoltar);
+        painelConsulta.add(btnVoltar, gbc);
+
+        painelImagem.add(painelConsulta, BorderLayout.CENTER);
 
         btnBuscarNome.addActionListener(new ActionListener() {
             @Override
@@ -130,6 +173,7 @@ public class TelaConsultaAlunos {
             }
         });
 
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
