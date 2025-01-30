@@ -83,6 +83,7 @@ public class TelaInicial {
         frame.setVisible(true);
     }
 
+
     public static void main(String[] args) {
         AlunoController alunoController = new AlunoController();
         new TelaInicial(alunoController);
