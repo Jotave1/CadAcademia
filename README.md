@@ -56,7 +56,7 @@ Este projeto implementa um sistema CRUD (Create, Read, Update, Delete) para gere
 | Campo | Tipo | Tamanho | Descrição |
 |-------------------|--------------|---------|------------|
 | id                | INT          |         | Identificador único do treino (Primary Key) |
-| oredom            | VARCHAR      | 255     | Ordem do treino (ABC, ABCD, ABCDE, PPL, UL) |
+| ordem            | VARCHAR      | 255     | Ordem do treino (ABC, ABCD, ABCDE, PPL, UL) |
 | descricao         | VARCHAR      | 255     | Descrição detalhada do treino |
 
 
