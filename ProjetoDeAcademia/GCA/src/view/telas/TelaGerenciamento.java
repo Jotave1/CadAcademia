@@ -2,11 +2,12 @@ package view.telas;
 
 import javax.swing.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import controller.AlunoController;
 import view.TelaInicial;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class TelaGerenciamento {
     private AlunoController alunoController;
@@ -27,8 +28,12 @@ public class TelaGerenciamento {
         btnGerenciarTreinos.setBounds(100, 70, 200, 30);
         frame.add(btnGerenciarTreinos);
 
+        JButton btnConsultarTreinos = new JButton("Consultar Alunos");
+        btnConsultarTreinos.setBounds(100, 110, 200, 30);
+        frame.add(btnConsultarTreinos);
+
         JButton btnVoltar = new JButton("Voltar");
-        btnVoltar.setBounds(100, 110, 200, 30);
+        btnVoltar.setBounds(100, 150, 200, 30);
         frame.add(btnVoltar);
 
         btnGerenciarAlunos.addActionListener(new ActionListener() {
@@ -43,6 +48,14 @@ public class TelaGerenciamento {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new TelaGerenciarTreinos(alunoController);
+                frame.dispose();
+            }
+        });
+
+        btnConsultarTreinos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new TelaConsultaAlunos(alunoController);
                 frame.dispose();
             }
         });

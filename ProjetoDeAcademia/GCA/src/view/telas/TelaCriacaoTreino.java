@@ -50,7 +50,8 @@ public class TelaCriacaoTreino {
                 String ordem = (String) comboBoxOrdem.getSelectedItem();
                 String descricao = textDescricao.getText();
 
-                Treino treino = new Treino(alunoController.consultarTreinos().size() + 1, null, ordem, descricao);
+                // Associar o treino com null, pois não será vinculado a um aluno específico
+                Treino treino = new Treino(alunoController.consultarTreinos().size() + 1, ordem, descricao);
                 alunoController.cadastrarTreino(treino);
 
                 JOptionPane.showMessageDialog(frame, "Treino cadastrado com sucesso!");

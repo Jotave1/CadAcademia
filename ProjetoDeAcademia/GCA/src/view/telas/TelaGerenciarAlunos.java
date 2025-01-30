@@ -2,14 +2,11 @@ package view.telas;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 import controller.AlunoController;
 import model.Aluno;
 import view.edicao.TelaEditarAluno;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
 
 public class TelaGerenciarAlunos {
     private AlunoController alunoController;
@@ -24,7 +21,7 @@ public class TelaGerenciarAlunos {
 
         String[] colunas = {"ID", "Nome", "Idade", "Telefone", "Peso", "Objetivo", "Tipo de Treino"};
         DefaultTableModel model = new DefaultTableModel(colunas, 0);
-        
+
         List<Aluno> alunos = alunoController.consultarAlunos();
         for (Aluno aluno : alunos) {
             Object[] linha = {
@@ -38,7 +35,7 @@ public class TelaGerenciarAlunos {
             };
             model.addRow(linha);
         }
-        
+
         JTable tabela = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(tabela);
         scrollPane.setBounds(10, 10, 560, 300);
@@ -79,12 +76,9 @@ public class TelaGerenciarAlunos {
             }
         });
 
-        btnVoltar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new TelaGerenciamento(alunoController);
-                frame.dispose();
-            }
+        btnVoltar.addActionListener(e -> {
+            new TelaGerenciamento(alunoController);
+            frame.dispose();
         });
 
         frame.setVisible(true);
